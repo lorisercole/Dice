@@ -6,21 +6,26 @@ def check_results(eRef, eTest, tol):
 
     if (abs(eRef - eTest) < tol):
         print("test passed")
+        print(f"  eTest - eRef = {eTest - eRef:.4e}")
     else:
         print("test failed")
-        print("eRef = ", eRef)
-        print("eTest = ", eTest)
+        print(f"  eTest - eRef = {eTest - eRef:.4e}")
+        print("  eRef = ", eRef)
+        print("  eTest = ", eTest)
 
 def check_results_afqmc(eRef, eTest, wRef, wTest, tol):
 
     if ((abs(eRef - eTest)) < tol and (abs(wRef - wTest) < tol)):
         print("test passed")
+        print(f"  eTest - eRef = {eTest - eRef:.4e}")
     else:
         print("test failed")
-        print("eRef = ", eRef)
-        print("eTest = ", eTest)
-        print("wRef = ", wRef)
-        print("wTest = ", wTest)
+        print(f"  eTest - eRef = {eTest - eRef:.4e}")
+        print("  eRef = ", eRef)
+        print("  eTest = ", eTest)
+        print(f"  wTest - wRef = {wTest - wRef:.4e}")
+        print("  wRef = ", wRef)
+        print("  wTest = ", wTest)
 
 def check_results_fciqmc_replica(eRef1, eRef2, eRefVar, eRefEN2,
                                  eTest1, eTest2, eTestVar, eTestEN2, tol):
