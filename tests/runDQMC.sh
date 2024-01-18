@@ -1,6 +1,6 @@
 #!/bin/bash
 
-printf "\n\nRunning Tests for AFQMC\n"
+printf "\n\nRunning Tests for DQMC\n"
 printf "======================================================\n"
 
 MPICOMMAND="mpirun -np 4"

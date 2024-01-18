@@ -73,7 +73,7 @@ fi
 cd $here/VMC/hubbard_1x6
 ../../clean.sh
 printf "...running hubbard_1x6\n"
-$VMCPATH > vmc.out
+$MPICOMMAND $VMCPATH > vmc.out
 python ../../testEnergy.py 'vmc' $tol
 if [ $clean == 1 ]
 then    

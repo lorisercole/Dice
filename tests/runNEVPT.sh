@@ -46,7 +46,7 @@ fi
 cd $here/NEVPT2/n2_vdz/exact_energies
 ../../../clean.sh
 printf "...running NEVPT2/n2_vdz/exact_energies PRINT\n"
-$NEVPTPRINTPATH > nevpt_print.out
+$MPICOMMAND $NEVPTPRINTPATH > nevpt_print.out
 python ../../../testEnergy.py 'nevpt_print' $tol
 if [ $clean == 1 ]
 then
@@ -56,7 +56,7 @@ fi
 cd $here/NEVPT2/n2_vdz/exact_energies
 ../../../clean_wo_bkp.sh
 printf "...running NEVPT2/n2_vdz/exact_energies READ\n"
-$NEVPTREADPATH > nevpt_read.out
+$MPICOMMAND $NEVPTREADPATH > nevpt_read.out
 python ../../../testEnergy.py 'nevpt_read' $tol
 if [ $clean == 1 ]
 then
@@ -88,7 +88,7 @@ fi
 cd $here/NEVPT2/n2_vdz/single_perturber
 ../../../clean.sh
 printf "...running NEVPT2/n2_vdz/single_perturber\n"
-$NEVPTPATH > nevpt.out
+$MPICOMMAND $NEVPTPATH > nevpt.out
 python ../../../testEnergy.py 'single_perturber' $tol
 if [ $clean == 1 ]
 then
