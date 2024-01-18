@@ -5,10 +5,10 @@ import sys
 def check_results(eRef, eTest, tol):
 
     if (abs(eRef - eTest) < tol):
-        print("test passed")
+        print("  TEST PASSED")
         print(f"  eTest - eRef = {eTest - eRef:.4e}")
     else:
-        print("test failed")
+        print("  TEST FAILED")
         print(f"  eTest - eRef = {eTest - eRef:.4e}")
         print("  eRef = ", eRef)
         print("  eTest = ", eTest)
@@ -16,10 +16,10 @@ def check_results(eRef, eTest, tol):
 def check_results_afqmc(eRef, eTest, wRef, wTest, tol):
 
     if ((abs(eRef - eTest)) < tol and (abs(wRef - wTest) < tol)):
-        print("test passed")
+        print("  TEST PASSED")
         print(f"  eTest - eRef = {eTest - eRef:.4e}")
     else:
-        print("test failed")
+        print("  TEST FAILED")
         print(f"  eTest - eRef = {eTest - eRef:.4e}")
         print("  eRef = ", eRef)
         print("  eTest = ", eTest)
@@ -36,35 +36,35 @@ def check_results_fciqmc_replica(eRef1, eRef2, eRefVar, eRefEN2,
     passed_en2 = abs(eRefEN2 - eTestEN2) < tol
 
     if (passed_1 and passed_2 and passed_var and passed_en2):
-        print("test passed")
+        print("  TEST PASSED")
     else:
-        print("test failed")
-        print("eRef1 = ", eRef1)
-        print("eTest1 = ", eTest1)
-        print("eRef2 = ", eRef2)
-        print("eTest2 = ", eTest2)
-        print("eRefVar = ", eRefVar)
-        print("eTestVar = ", eTestVar)
-        print("eRefEN2 = ", eRefEN2)
-        print("eTestEN2 = ", eTestEN2)
+        print("  TEST FAILED")
+        print("  eRef1 = ", eRef1)
+        print("  eTest1 = ", eTest1)
+        print("  eRef2 = ", eRef2)
+        print("  eTest2 = ", eTest2)
+        print("  eRefVar = ", eRefVar)
+        print("  eTestVar = ", eTestVar)
+        print("  eRefEN2 = ", eRefEN2)
+        print("  eTestEN2 = ", eTestEN2)
 
 def check_results_sp(determERef, determETest, stochERef, stochETest, tol):
 
     if (abs(determERef - determETest) < tol):
-        print("determ test passed")
+        print(  "  determ   TEST PASSED")
     else:
-        print("determ test failed")
-        print("determERef = ", determERef)
-        print("determETest = ", determETest)
+        print("  determ   TEST FAILED")
+        print("  determERef = ", determERef)
+        print("  determETest = ", determETest)
 
     if (abs(stochERef - stochETest) < tol):
-        print("stoch test passed")
+        print("  stoch   TEST PASSED")
     else:
-        print("stoch test failed")
-        print("stochERef = ", stochERef)
-        print("stochETest = ", stochETest)
+        print("  stoch   TEST FAILED")
+        print("  stochERef = ", stochERef)
+        print("  stochETest = ", stochETest)
 
-if __name__ == '__main__':
+def main():
 
     mc = sys.argv[1]
     tol = float(sys.argv[2])
@@ -75,7 +75,11 @@ if __name__ == '__main__':
             pass
         eRef = float(line.split()[1])
 
-        fh = open(mc+'.out', 'r')
+        try:
+            fh = open(mc+'.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             pass
         eTest = float(line.split()[1])
@@ -89,7 +93,11 @@ if __name__ == '__main__':
         wRef = float(line.split()[0])
         eRef = float(line.split()[1])
 
-        fh = open('samples.dat', 'r')
+        try:
+            fh = open('samples.dat', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             pass
         wTest = float(line.split()[0])
@@ -103,7 +111,11 @@ if __name__ == '__main__':
             pass
         eRef = float(line.split()[-1])
 
-        fh = open(mc+'.out', 'r')
+        try:
+            fh = open(mc+'.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             pass
         eTest = float(line.split()[-1])
@@ -116,7 +128,11 @@ if __name__ == '__main__':
             pass
         determERef = float(line.split()[-1])
 
-        fh = open('nevpt.out', 'r')
+        try:
+            fh = open('nevpt.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             pass
         determETest = float(line.split()[-1])
@@ -126,7 +142,11 @@ if __name__ == '__main__':
             pass
         stochERef = float(line.split()[1])
 
-        fh = open('stoch_samples_0.dat', 'r')
+        try:
+            fh = open('stoch_samples_0.dat', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             pass
         stochETest = float(line.split()[1])
@@ -142,7 +162,11 @@ if __name__ == '__main__':
 
         eRef = float(last_line.split()[5]) / float(last_line.split()[6])
 
-        fh = open(mc+'.out', 'r')
+        try:
+            fh = open(mc+'.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             if '#' not in line:
                 last_line = line
@@ -173,7 +197,11 @@ if __name__ == '__main__':
         if doingEN2:
             eRefEN2 = float(last_line.split()[13]) / float(last_line.split()[12])
 
-        fh = open('fciqmc.out', 'r')
+        try:
+            fh = open('fciqmc.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             if '#' not in line:
                 last_line = line
@@ -198,7 +226,11 @@ if __name__ == '__main__':
 
         eRef = float(last_line.split()[7]) / float(last_line.split()[8])
 
-        fh = open('fciqmc.out', 'r')
+        try:
+            fh = open('fciqmc.out', 'r')
+        except FileNotFoundError:
+            print("  FAILED: output file not found")
+            return 1
         for line in fh:
             if '#' not in line:
                 last_line = line
@@ -206,3 +238,6 @@ if __name__ == '__main__':
         eTest = float(last_line.split()[7]) / float(last_line.split()[8])
 
         check_results(eRef, eTest, tol)
+
+if __name__ == '__main__':
+    main()
